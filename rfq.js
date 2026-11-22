@@ -1,6 +1,6 @@
 // Demandes de devis : l'acheteur publie un besoin, les fournisseurs proposent leur prix.
 import {
-  sb, state, html, setHTML, $, $$, fcfa, fdate, CATEGORIES, catLabel, catIcon, CITIES, verifiedBadge, stars,
+  ic, sb, state, html, setHTML, $, $$, fcfa, fdate, CATEGORIES, catLabel, CITIES, verifiedBadge, stars,
   empty, loading, toast, run, must, go, query, requireLogin,
 } from "./lib.js";
 
@@ -20,9 +20,9 @@ export async function rfqList(root) {
   const { data } = await rq;
   if (!root.isConnected) return;
   setHTML($("#res"), data?.length ? html`${data.map((r) => html`<a class="panel rfq" href="#/devis/${r.id}">
-    <div class="row"><b>${catIcon(r.category)} ${r.title}</b><span class="st st-${r.status}">${RFQ_STATUS[r.status]}</span></div>
+    <div class="row"><b class="rt">${ic(r.category, 18)} ${r.title}</b><span class="st st-${r.status}">${RFQ_STATUS[r.status]}</span></div>
     <div class="muted">${r.quantity} ${r.unit}${r.target_price ? ` · prix visé ${fcfa(r.target_price)} / ${r.unit}` : ""} · ${r.city} · ${fdate(r.created_at)}</div>
-    <div class="muted">${tab === "mes" ? `${r.quotes.length} offre(s) reçue(s)` : state.shop && r.quotes.some((x) => x.shop_id === state.shop.id) ? "✔ vous avez répondu" : "Répondez avec votre prix"}</div></a>`)}`
+    <div class="muted">${tab === "mes" ? `${r.quotes.length} offre(s) reçue(s)` : state.shop && r.quotes.some((x) => x.shop_id === state.shop.id) ? "vous avez répondu" : "Répondez avec votre prix"}</div></a>`)}`
     : empty(tab === "mes" ? "Vous n'avez pas encore publié de demande." : "Aucune demande ouverte pour le moment."));
 }
 
@@ -48,7 +48,7 @@ export async function rfqNew(root) {
         title: f.title.trim(), quantity: Number(f.quantity), unit: f.unit.trim(), category: f.category, city: f.city,
         target_price: f.target_price ? Number(f.target_price) : null, needed_by: f.needed_by || null, description: f.description.trim(),
       }).select().single());
-      toast("Demande publiée ✔ Les fournisseurs vont vous répondre."); go(`/devis/${r.id}`);
+      toast("Demande publiée Les fournisseurs vont vous répondre."); go(`/devis/${r.id}`);
     });
   };
 }
@@ -78,7 +78,7 @@ export async function rfqDetail(root, id) {
         <div class="row"><span>${q.quantity} ${r.unit} × ${fcfa(q.unit_price)}</span><b>${fcfa(q.quantity * q.unit_price)}</b></div>
         <div class="muted">Délai : ${q.delivery_days} jour(s)</div>
         ${q.message ? html`<p class="pre">${q.message}</p>` : ""}
-        ${r.status === "open" ? html`<div class="actions"><button class="btn" data-accept="${q.id}">Accepter cette offre</button><button class="btn outline" data-msg="${q.shop_id}">💬 Discuter</button></div>` : ""}
+        ${r.status === "open" ? html`<div class="actions"><button class="btn" data-accept="${q.id}">Accepter cette offre</button><button class="btn outline" data-msg="${q.shop_id}">${ic("message", 18)} Discuter</button></div>` : ""}
       </div>`) : empty("Pas encore d'offre. Les fournisseurs sont prévenus quand ils ouvrent l'application.")}
       <form class="panel hidden" id="acc"><h3>Vos coordonnées pour la commande</h3>
         <div class="two"><label>Nom<input name="name" required value="${state.profile?.full_name || ""}"></label><label>Téléphone<input name="phone" required value="${state.profile?.phone || ""}"></label></div>
@@ -88,7 +88,7 @@ export async function rfqDetail(root, id) {
         <button class="btn big" id="confirm">Confirmer et créer la commande</button></form>`
     : html`
       ${myQuote ? html`<div class="panel"><h3>Votre offre</h3><p>${myQuote.quantity} ${r.unit} × ${fcfa(myQuote.unit_price)} = <b>${fcfa(myQuote.quantity * myQuote.unit_price)}</b> · ${myQuote.delivery_days} j</p>
-        <p class="muted">Statut : ${myQuote.status === "pending" ? "en attente de l'acheteur" : myQuote.status === "accepted" ? "✔ acceptée — voir vos commandes" : "non retenue"}</p></div>` : ""}
+        <p class="muted">Statut : ${myQuote.status === "pending" ? "en attente de l'acheteur" : myQuote.status === "accepted" ? "acceptée — voir vos commandes" : "non retenue"}</p></div>` : ""}
       ${canQuote ? html`<form class="panel" id="q"><h3>${myQuote ? "Modifier mon offre" : "Proposer mon prix"}</h3>
         <div class="two"><label>Prix par ${r.unit} (FCFA)<input name="unit_price" type="number" min="1" required value="${myQuote?.unit_price || ""}" inputmode="numeric"></label>
         <label>Quantité proposée<input name="quantity" type="number" min="1" required value="${myQuote?.quantity || r.quantity}" inputmode="numeric"></label></div>
@@ -102,11 +102,11 @@ export async function rfqDetail(root, id) {
   $("#close")?.addEventListener("click", (e) => { if (confirm("Fermer cette demande ?")) run(e.target, async () => { must(await sb.rpc("close_rfq", { _rfq: id })); rfqDetail(root, id); }); });
   let chosen = null;
   $$("[data-accept]", root).forEach((b) => { b.onclick = () => { chosen = b.dataset.accept; $("#acc").classList.remove("hidden"); $("#acc").scrollIntoView({ behavior: "smooth" }); }; });
-  $$("[data-msg]", root).forEach((b) => { b.onclick = async () => { const { data, error } = await sb.rpc("open_conversation", { _shop: b.dataset.msg }); if (!error) go(`/messages/${data}`); }; });
+  $$("[data-msg]", root).forEach((b) => { b.onclick = async () => { const { data, error } = await sb.rpc("open_conversation", { _shop: b.dataset.msg, _product: null }); if (!error) go(`/messages/${data}`); }; });
   $("#acc")?.addEventListener("submit", (e) => {
     e.preventDefault();
     const info = Object.fromEntries(new FormData(e.target));
-    run($("#confirm"), async () => { const oid = must(await sb.rpc("accept_quote", { _quote: chosen, _info: info })); toast("Commande créée ✔"); go(`/commande/${oid}${info.payment_method === "mobile_money" ? "?payer=1" : ""}`); });
+    run($("#confirm"), async () => { const oid = must(await sb.rpc("accept_quote", { _quote: chosen, _info: info })); toast("Commande créée"); go(`/commande/${oid}${info.payment_method === "mobile_money" ? "?payer=1" : ""}`); });
   });
   const qf = $("#q");
   if (qf) {
@@ -118,7 +118,7 @@ export async function rfqDetail(root, id) {
       run($("#send"), async () => {
         if (myQuote) must(await sb.from("quotes").update(v).eq("id", myQuote.id));
         else must(await sb.from("quotes").insert({ ...v, rfq_id: id, shop_id: state.shop.id }));
-        toast("Offre envoyée ✔"); rfqDetail(root, id);
+        toast("Offre envoyée"); rfqDetail(root, id);
       });
     };
   }

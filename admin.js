@@ -1,6 +1,6 @@
 // Administration ANW KA SUGU : validation et vérification des boutiques, versements, commandes, réglages.
 import {
-  sb, state, html, setHTML, $, $$, fcfa, fdate, fdatetime, KINDS, SHOP_STATUS, ORDER_STATUS, PAYOUT, verifiedBadge,
+  ic, sb, state, html, setHTML, $, $$, fcfa, fdate, fdatetime, KINDS, SHOP_STATUS, ORDER_STATUS, PAYOUT, verifiedBadge,
   empty, loading, toast, run, must, go, query, requireLogin, waLink,
 } from "./lib.js";
 
@@ -34,20 +34,20 @@ async function shopsAdmin(el) {
         ${s.whatsapp ? html` · <a target="_blank" rel="noopener" href="${waLink(s.whatsapp)}">WhatsApp</a>` : ""}</p>
       ${p.business_info ? html`<p class="pre">${p.business_info}</p>` : ""}
       ${s.description ? html`<p class="pre muted">${s.description}</p>` : ""}
-      <div class="docs">${(p.documents || []).map((d, i) => html`<button class="btn outline small" data-doc="${d}">📄 Document ${i + 1}</button>`)}</div>
+      <div class="docs">${(p.documents || []).map((d, i) => html`<button class="btn outline sm" data-doc="${d}">${ic("quote", 16)} Document ${i + 1}</button>`)}</div>
       <div class="actions">
         ${s.status !== "approved" ? html`<button class="btn" data-id="${s.id}" data-set="approved">Valider</button>` : ""}
         ${s.status === "pending" ? html`<button class="btn outline" data-id="${s.id}" data-set="rejected">Refuser</button>` : ""}
         ${s.status === "approved" ? html`<button class="btn outline" data-id="${s.id}" data-set="suspended">Suspendre</button>` : ""}
-        <button class="btn ${s.verified ? "outline" : "gold"}" data-id="${s.id}" data-verif="${s.verified ? "0" : "1"}">${s.verified ? "Retirer le badge vérifié" : "✔ Marquer vérifié"}</button>
+        <button class="btn ${s.verified ? "outline" : "gold"}" data-id="${s.id}" data-verif="${s.verified ? "0" : "1"}">${s.verified ? "Retirer le badge vérifié" : "Marquer vérifié"}</button>
         <a class="btn outline" href="#/boutique/${s.id}">Voir</a>
       </div></div>`; }) : empty("Aucune boutique dans cette liste.")}`);
   $$("[data-set]", el).forEach((b) => { b.onclick = () => {
     const status = b.dataset.set; let reason = null;
     if (status !== "approved") { reason = prompt(status === "rejected" ? "Motif du refus (visible par le vendeur) :" : "Motif de la suspension :"); if (reason === null) return; }
-    run(b, async () => { must(await sb.from("shops").update({ status, rejection_reason: reason || null }).eq("id", b.dataset.id)); toast("Fait ✔"); shopsAdmin(el); });
+    run(b, async () => { must(await sb.from("shops").update({ status, rejection_reason: reason || null }).eq("id", b.dataset.id)); toast("Fait"); shopsAdmin(el); });
   }; });
-  $$("[data-verif]", el).forEach((b) => { b.onclick = () => run(b, async () => { must(await sb.from("shops").update({ verified: b.dataset.verif === "1" }).eq("id", b.dataset.id)); toast("Fait ✔"); shopsAdmin(el); }); });
+  $$("[data-verif]", el).forEach((b) => { b.onclick = () => run(b, async () => { must(await sb.from("shops").update({ verified: b.dataset.verif === "1" }).eq("id", b.dataset.id)); toast("Fait"); shopsAdmin(el); }); });
   $$("[data-doc]", el).forEach((b) => { b.onclick = () => run(b, async () => {
     const { signedUrl } = must(await sb.storage.from("documents").createSignedUrl(b.dataset.doc, 300));
     window.open(signedUrl, "_blank", "noopener");
@@ -82,7 +82,7 @@ async function payouts(el) {
     <h2>Argent gardé</h2>${group("held").length ? group("held").map(line) : empty("Aucun paiement en attente.")}`);
   $$("[data-sub]", el).forEach((b) => { b.onclick = () => {
     if (!confirm(b.dataset.p === "released" ? "Confirmez-vous avoir versé l'argent au vendeur ?" : "Confirmez-vous avoir remboursé le client ?")) return;
-    run(b, async () => { must(await sb.rpc("admin_set_payout", { _sub: b.dataset.sub, _payout: b.dataset.p })); toast("Enregistré ✔"); payouts(el); });
+    run(b, async () => { must(await sb.rpc("admin_set_payout", { _sub: b.dataset.sub, _payout: b.dataset.p })); toast("Enregistré"); payouts(el); });
   }; });
 }
 
@@ -92,11 +92,11 @@ async function allOrders(el) {
   const sum = rows.filter((o) => o.sub_orders.some((s) => s.status === "delivered")).reduce((a, o) => a + o.sub_orders.filter((s) => s.status === "delivered").reduce((b, s) => b + s.total, 0), 0);
   setHTML(el, html`<div class="stats"><div class="stat"><small>Commandes (100 dernières)</small><b>${rows.length}</b></div>
     <div class="stat good"><small>Montant livré</small><b>${fcfa(sum)}</b></div></div>
-    ${rows.length ? rows.map((o) => html`<details class="panel"><summary><b>${o.reference}</b> · ${fdatetime(o.created_at)} · ${o.customer_name} · <b>${fcfa(o.total)}</b> ${o.payment_status === "paid" ? "· 💰 payée" : ""}</summary>
+    ${rows.length ? rows.map((o) => html`<details class="panel"><summary><b>${o.reference}</b> · ${fdatetime(o.created_at)} · ${o.customer_name} · <b>${fcfa(o.total)}</b> ${o.payment_status === "paid" ? "· payée" : ""}</summary>
       ${o.sub_orders.map((s) => html`<div class="row"><span>${s.shops?.name} — ${ORDER_STATUS[s.status]}</span><span>${fcfa(s.total)} · ${PAYOUT[s.payout_status]}</span></div>
-        <div class="actions">${["confirmed", "shipped", "delivered", "cancelled"].filter((x) => x !== s.status).map((x) => html`<button class="btn outline small" data-sub="${s.id}" data-st="${x}">${ORDER_STATUS[x]}</button>`)}</div>`)}
+        <div class="actions">${["confirmed", "preparing", "shipped", "delivered", "completed", "cancelled"].filter((x) => x !== s.status).map((x) => html`<button class="btn outline sm" data-sub="${s.id}" data-st="${x}">${ORDER_STATUS[x]}</button>`)}</div>`)}
     </details>`) : empty("Aucune commande.")}`);
-  $$("[data-st]", el).forEach((b) => { b.onclick = () => { if (confirm(`Forcer le statut « ${ORDER_STATUS[b.dataset.st]} » ?`)) run(b, async () => { must(await sb.rpc("set_sub_order_status", { _sub: b.dataset.sub, _status: b.dataset.st })); toast("Fait ✔"); allOrders(el); }); }; });
+  $$("[data-st]", el).forEach((b) => { b.onclick = () => { if (confirm(`Forcer le statut « ${ORDER_STATUS[b.dataset.st]} » ?`)) run(b, async () => { must(await sb.rpc("set_sub_order_status", { _sub: b.dataset.sub, _status: b.dataset.st })); toast("Fait"); allOrders(el); }); }; });
 }
 
 async function settings(el) {
@@ -108,9 +108,10 @@ async function settings(el) {
     <button class="btn" id="go">Enregistrer</button></form>
     <div class="panel"><h3>Ajouter un administrateur</h3><p class="muted">Dans Supabase > SQL Editor :</p>
     <pre>insert into public.user_roles (user_id, role)
-select id, 'admin' from auth.users where email = 'email@exemple.com';</pre></div>`);
+select id, 'admin' from auth.users
+where email like '22370000000@%';   -- numéro de la personne (223 + 8 chiffres)</pre></div>`);
   $("#f").onsubmit = (e) => { e.preventDefault(); run($("#go"), async () => {
     must(await sb.from("settings").update({ commission_rate: Number(e.target.rate.value) / 100, support_phone: e.target.support_phone.value.trim() }).eq("id", true));
-    toast("Enregistré ✔");
+    toast("Enregistré");
   }); };
 }

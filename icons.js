@@ -1,0 +1,61 @@
+// Icônes vectorielles ANW KA SUGU (traits simples, 24×24). Aucune image, aucun emoji.
+const P = {
+  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  quote: '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/><path d="M8.5 13h7M8.5 17h5"/>',
+  cart: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2.5 3h2.6l2.4 12h11l2-8H6.3"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.4-6 8-6s6.8 2 8 6"/>',
+  package: '<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/>',
+  message: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/>',
+  heart: '<path d="M12 20s-7.5-4.6-9-9.4C2 7.4 4.2 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.7 1.1-1.6 2.7-2.7 4.7-2.7 3.1 0 5.3 2.9 4.3 6.1C19.5 15.4 12 20 12 20z"/>',
+  store: '<path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v9h14v-9"/><path d="M10 21v-5h4v5"/>',
+  shield: '<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/>',
+  logout: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="m10 17-5-5 5-5"/><path d="M5 12h11"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  verified: '<path d="M12 2.5l2.4 1.8 3 .1.9 2.8 2.4 1.8-.9 2.9.9 2.9-2.4 1.8-.9 2.8-3 .1L12 21.5l-2.4-1.8-3-.1-.9-2.8-2.4-1.8.9-2.9-.9-2.9 2.4-1.8.9-2.8 3-.1z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  camera: '<path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/>',
+  trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  crop: '<path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M2 6h14a2 2 0 0 1 2 2v14"/>',
+  replace: '<path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>',
+  phone: '<path d="M5 3h3.5l1.8 4.5-2.3 1.5a11 11 0 0 0 7 7l1.5-2.3L21 15.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  truck: '<path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3.5V16h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>',
+  star: '<path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/>',
+  share: '<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/>',
+  printer: '<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/>',
+  back: '<path d="M19 12H5M11 18l-6-6 6-6"/>',
+  chevron: '<path d="m9 6 6 6-6 6"/>',
+  filter: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  download: '<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',
+  wallet: '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="15" r="1.2"/>',
+  send: '<path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  eyeOff: '<path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 4.2-.9"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  bell: '<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>',
+  // catégories
+  alimentation: '<path d="M12 21V8"/><path d="M12 8c-2.3 0-3.8-1.6-3.8-3.8C10.5 4.2 12 5.8 12 8zm0 0c2.3 0 3.8-1.6 3.8-3.8C13.5 4.2 12 5.8 12 8z"/><path d="M12 13c-2.3 0-3.8-1.6-3.8-3.8 2.3 0 3.8 1.6 3.8 3.8zm0 0c2.3 0 3.8-1.6 3.8-3.8-2.3 0-3.8 1.6-3.8 3.8z"/><path d="M12 18c-2.3 0-3.8-1.6-3.8-3.8 2.3 0 3.8 1.6 3.8 3.8zm0 0c2.3 0 3.8-1.6 3.8-3.8-2.3 0-3.8 1.6-3.8 3.8z"/>',
+  telephones: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>',
+  mode: '<path d="M8 3 3.5 6l2 4L8 9v12h8V9l2.5 1 2-4L16 3a4 4 0 0 1-8 0z"/>',
+  chaussures: '<path d="M3 18V8.5l4 .8 1.6 3 4.4 1.7 5.5 1.2A3 3 0 0 1 21 18z"/><path d="M3 18h18M9.5 13.2l1-1.6M12 14.1l1-1.6"/>',
+  beaute: '<path d="M10 2.5h4v3h-4z"/><path d="M9 5.5h6l1 3v11.5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8.5z"/><path d="M12 11.5v5M9.5 14h5"/>',
+  maison: '<path d="M4 10h16"/><path d="M5.5 10v7a3 3 0 0 0 3 3h7a3 3 0 0 0 3-3v-7"/><path d="M9 7c0-1.7 1.3-3 3-3s3 1.3 3 3"/><path d="M2 12h2M20 12h2"/>',
+  electromenager: '<rect x="4" y="2.5" width="16" height="19" rx="2"/><path d="M4 7h16"/><circle cx="12" cy="14" r="4"/><path d="M7.5 4.8h.01M10.5 4.8h.01"/>',
+  construction: '<path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L3.5 17.5a1.4 1.4 0 0 0 2 2l5.7-5.7a4 4 0 0 0 5.3-5.3l-2.5 2.5-2-2z"/>',
+  agriculture: '<path d="M12 21v-9"/><path d="M12 12C12 8.2 9.6 5.8 5 5.8 5 9.6 7.4 12 12 12zm0-2c0-3.6 2.4-6 7-6 0 3.7-2.4 6-7 6z"/><path d="M7 21h10"/>',
+  auto: '<path d="M5 15.5v-4l2-5h10l2 5v4"/><path d="M3.5 11.5h17v5h-17z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/>',
+  autres: '<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/>',
+};
+const FILLED = new Set(["star"]);
+/** Renvoie le code SVG d'une icône. */
+export function icon(name, size = 20, cls = "") {
+  const d = P[name] || P.autres;
+  const fill = FILLED.has(name) ? 'fill="currentColor" stroke="none"' : 'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+  return `<svg class="ic ${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" ${fill} aria-hidden="true" focusable="false">${d}</svg>`;
+}

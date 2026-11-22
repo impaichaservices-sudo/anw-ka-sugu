@@ -3,29 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ANW KA SUGU — Votre marché en ligne au Mali</title>
-  <meta name="description" content="ANW KA SUGU : achetez au détail ou en gros auprès de fabricants, grossistes et boutiques vérifiés au Mali. Demandes de devis, prix en FCFA, Orange Money et Moov Money.">
-  <meta name="theme-color" content="#0b4d12">
-  <meta property="og:title" content="ANW KA SUGU — Votre marché en ligne">
-  <meta property="og:description" content="Détail et gros, fournisseurs vérifiés, paiement mobile sécurisé.">
-  <meta property="og:image" content="logo.png">
+  <title>ANW KA SUGU — Marché en ligne au Mali</title>
+  <meta name="description" content="ANW KA SUGU : trouvez et comparez les produits des boutiques du Mali, au détail ou en gros. Discutez avec le vendeur et commandez.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="ANW KA SUGU — Marché en ligne">
+  <meta property="og:image" content="icon-512.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon-32.png" type="image/png">
+  <link rel="icon" href="icon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="icon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header id="top"></header>
   <div class="offline-bar">Pas de connexion internet</div>
   <main id="main"><div class="loading"><span class="spinner"></span> Chargement…</div></main>
-  <button id="install" class="install" hidden>📲 Installer l'application</button>
-  <footer class="foot">
-    <img src="logo.png" alt="ANW KA SUGU" width="160" height="107" loading="lazy">
-    <p>Achetez · Vendez · Faites livrer — partout au Mali.</p>
-    <p><a href="#/vendeur">Devenir vendeur</a> · <a href="#/devis/nouveau">Demander un devis</a> · <a href="#/boutiques">Fournisseurs</a></p>
-    <p class="muted">© ANW KA SUGU</p>
-  </footer>
-  <nav id="bottom" class="bottom"></nav>
+  <div id="install" class="install" hidden></div>
+  <footer class="foot"><p><b>ANW KA SUGU</b> · Marché en ligne au Mali</p><p><a href="#/boutiques">Boutiques</a> · <a href="#/devis/nouveau">Demander un devis</a></p></footer>
+  <nav id="bottom" class="bottom" aria-label="Navigation principale"></nav>
   <noscript>Activez JavaScript pour utiliser ANW KA SUGU.</noscript>
   <script type="module" src="app.js"></script>
 </body>

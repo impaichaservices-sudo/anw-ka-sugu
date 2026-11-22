@@ -1,17 +1,17 @@
 {
   "name": "ANW KA SUGU — Marché en ligne",
   "short_name": "ANW KA SUGU",
-  "description": "Votre marché en ligne au Mali : détail, gros, devis et fournisseurs vérifiés.",
+  "description": "Trouvez, comparez et commandez les produits des boutiques du Mali.",
   "lang": "fr",
   "start_url": "./#/",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#0b4d12",
+  "theme_color": "#ffffff",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
