@@ -1,7 +1,6 @@
-// ⚠️ À REMPLIR : Supabase > Project Settings > API
-// (ces deux valeurs sont publiques, elles peuvent être dans le site)
-export const SUPABASE_URL = "https://VOTRE-PROJET.supabase.co";
-export const SUPABASE_ANON_KEY = "VOTRE-CLE-ANON-PUBLIQUE";
+// Configuration ANW KA SUGU (valeurs publiques, sans danger)
+export const SUPABASE_URL = "https://gbooeyumyntllxyjztfh.supabase.co";
+export const SUPABASE_ANON_KEY = "sb_publishable_3Vltx1y32NM1yfIAcvlHVQ_4GGeC1L1";
 
-// Numéro WhatsApp de l'assistance ANW KA SUGU (format international, sans +). Laisser vide pour masquer.
+// Numéro WhatsApp de l'assistance (format international, sans +). Laisser vide pour masquer.
 export const SUPPORT_WHATSAPP = "";
